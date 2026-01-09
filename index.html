@@ -146,6 +146,42 @@ button:hover{
 
 .hidden{display:none}
 .reveal{display:block;margin-top:20px}
+
+/* corações ao clicar */
+.click-heart{
+    position:fixed;
+    font-size:22px;
+    animation: floatUp 2s ease forwards;
+    pointer-events:none;
+}
+@keyframes floatUp{
+    from{opacity:1; transform:translateY(0)}
+    to{opacity:0; transform:translateY(-80px)}
+}
+
+/* ===== versão mobile ===== */
+@media (max-width: 600px){
+    .container{
+        margin:20px 12px;
+        padding:22px;
+    }
+    h1{
+        font-size:2em;
+    }
+    p{
+        font-size:1.05em;
+    }
+    .gallery img{
+        width:45%;
+        height:140px;
+        margin:6px;
+    }
+    button{
+        width:100%;
+        font-size:1.15em;
+        padding:16px;
+    }
+}
 </style>
 </head>
 
@@ -179,13 +215,18 @@ button:hover{
         ser vc bb, eu espero muito q nesse ano nós dois consigamos ser mt mais felizes juntos do q nós temos 
         planejado, eu amo cada centimetro seu, sua personalidade sua risada, tudo.
         Mt obrigado por estar do meu lado nesses ultimos meses amor, vc n sabe o qnt vc melhorou eles
-        
     </p>
 
     <p>
         Esse site é um presentinho besta para você, uma forma de sempre que vc esquecer que eu te amo,
         volta aqui e lembra do tanto você significa para mim.
     </p>
+
+    <!-- CONTADOR -->
+    <div class="section">
+        <h2>Nosso tempo juntos ⏳</h2>
+        <p id="counter"></p>
+    </div>
 
     <div class="section">
         <h2>Razões pelas quais eu te amo 💖</h2>
@@ -209,20 +250,18 @@ button:hover{
             <img src="jjj.jpeg" onclick="openLightbox(this)">
             <img src="j.jpeg" onclick="openLightbox(this)">
             <img src="juju.jpeg" onclick="openLightbox(this)">
-            
         </div>
     </div>
 
-    <p>
-        Amor, ta sendo mt dificil pra mim ficar tanto tempo sem se ver assim, acho q eu ja virei algum tipo de dependente quimico pq é desde do ano passado ja né, 
-        agr q vc mais precisa de mim eu nao consigo ir ai pra ficar com vc por razoes obvias infelizmente, mas se Deus quiser ja ja isso passa.
-    </p>
-    <p>
-        Vc n tem noçao do quanto eu ficava entendiado quando vc saia pra caçar leao ou matar boi n sei e eu ficava sem ter com qm covnersar, 
-        alem das msg chegando com dias depois, mas acho q pl menos serviu pra me mostrar que eu n consigo ficar mais sem vc, é uma coisa anormal ja q eu n consigo explicar
-        nem qnd minha irma vai pra casa dela eu fico com tanta sdd assim, vc me ganhou mt amor eu quero q vc seja minha mulher pra sempre
-    </p>
-    
+    <!-- PROMESSA -->
+    <div class="section">
+        <h2>Uma promessa 🌙</h2>
+        <p>
+            Independentemente do que aconteça, eu prometo sempre te escolher,
+            te respeitar, te amar e lutar por nós.
+        </p>
+    </div>
+
     <div class="section audio-box">
         <h3>Uma música pra você 🎶</h3>
         <audio controls loop style="width:100%">
@@ -242,6 +281,7 @@ button:hover{
 </div>
 
 <script>
+/* mensagens surpresa */
 const messages = [
 "Eu te amo muito gordinha, eu me apaixonei por cada centimetro do seu corpo, até aqueles que eu nem vi ainda, e nem preciso pq o que eu sinto por vc é mto maior que isso. 💕",
 "Você é a melhor coisa que já aconteceu na minha vida.",
@@ -251,27 +291,17 @@ const messages = [
 "Eu me apaixono por você todos os dias.",
 "Com você, tudo fica mais leve, mais bonito e mais verdadeiro."
 ];
-
 let index = 0;
-
-function typeWriter(text, el){
-    el.innerHTML = "<strong></strong>";
-    let i = 0;
-    const interval = setInterval(()=>{
-        el.querySelector("strong").innerHTML += text.charAt(i);
-        i++;
-        if(i >= text.length) clearInterval(interval);
-    }, 35);
-}
 
 function revealMessage(){
     const box = document.getElementById("surprise");
     const text = document.getElementById("surprise-text");
     box.classList.add("reveal");
-    typeWriter(messages[index], text);
+    text.innerHTML = "<strong>" + messages[index] + "</strong>";
     index = (index + 1) % messages.length;
 }
 
+/* lightbox */
 function openLightbox(img){
     document.getElementById("lightbox-img").src = img.src;
     document.getElementById("lightbox").style.display="flex";
@@ -279,9 +309,29 @@ function openLightbox(img){
 function closeLightbox(){
     document.getElementById("lightbox").style.display="none";
 }
+
+/* contador */
+const startDate = new Date("2024-08-01"); // MUDA A DATA SE QUISER
+function updateCounter(){
+    const now = new Date();
+    const diff = now - startDate;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    document.getElementById("counter").innerText =
+        `Já se passaram ${days} dias desde que você virou meu lugar favorito 💕`;
+}
+updateCounter();
+
+/* corações ao clicar */
+document.addEventListener("click", e=>{
+    const heart = document.createElement("div");
+    heart.className = "click-heart";
+    heart.innerText = "❤️";
+    heart.style.left = e.clientX + "px";
+    heart.style.top = e.clientY + "px";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(), 2000);
+});
 </script>
 
 </body>
 </html>
-
-
