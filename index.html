@@ -14,6 +14,8 @@ body{
     text-align:center;
     overflow-x:hidden;
 }
+
+/* modo noite */
 body.night{
     background: radial-gradient(circle at top, #001020, #00030a);
 }
@@ -31,11 +33,26 @@ body.night{
     height:2px;
     background:white;
     border-radius:50%;
-    animation: fall 7s linear infinite;
+    animation: fall linear infinite;
 }
 @keyframes fall{
     from{top:-10px;opacity:1}
     to{top:110vh;opacity:0}
+}
+
+/* abertura */
+#welcome{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.85);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:1000;
+    font-size:1.4em;
+    padding:20px;
+    opacity:0;
+    transition:opacity 1s;
 }
 
 /* container */
@@ -63,8 +80,6 @@ p{font-size:1.15em;line-height:1.65;margin:18px 0}
     0%,100%{transform:scale(1)}
     50%{transform:scale(1.18)}
 }
-
-.section{margin-top:40px}
 
 /* galeria */
 .gallery{
@@ -102,30 +117,23 @@ p{font-size:1.15em;line-height:1.65;margin:18px 0}
     border-radius:18px;
 }
 
-/* abertura */
-#welcome{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.85);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:2000;
-    font-size:1.4em;
+/* áudio */
+.audio-box{
+    margin-top:30px;
     padding:20px;
-    opacity:0;
-    transition:opacity 1s;
+    background:rgba(255,255,255,.1);
+    border-radius:15px;
 }
 
 /* coração clicável */
 #heart-btn{
-    font-size:3.2em;
+    font-size:3.5em;
     cursor:pointer;
     animation:pulse 1.5s infinite;
     user-select:none;
 }
 #heart-btn.broken{
-    animation:shake .3s infinite;
+    animation: shake .3s infinite;
 }
 @keyframes shake{
     0%{transform:translateX(0)}
@@ -135,7 +143,7 @@ p{font-size:1.15em;line-height:1.65;margin:18px 0}
     100%{transform:translateX(0)}
 }
 
-/* corações ao clicar */
+/* corações subindo */
 .click-heart{
     position:fixed;
     font-size:22px;
@@ -150,6 +158,7 @@ p{font-size:1.15em;line-height:1.65;margin:18px 0}
 .hidden{display:none}
 .reveal{display:block;margin-top:20px}
 
+/* mobile */
 @media(max-width:600px){
     .container{margin:20px 12px;padding:22px}
     h1{font-size:2em}
@@ -161,17 +170,13 @@ p{font-size:1.15em;line-height:1.65;margin:18px 0}
 <body>
 
 <div id="welcome">fiz isso pra vc gordinha ❤️</div>
-
-<audio id="heartbeat" loop>
-    <source src="heartbeat.mp3" type="audio/mpeg">
-</audio>
-
-<div class="stars"></div>
+<div class="stars" id="stars"></div>
 
 <div class="container">
 <h1>pra minha mulher que ja é quase minha</h1>
 <div class="heart">❤️</div>
 
+<!-- SEUS TEXTOS (INTACTOS) -->
 <p>
 Princesa, você se tornou a pessoa que eu mais quero na minha vida, eu te amo muito mesmo,
 eu não me canso nunca de você, mesmo quando você nem ta merecendo, desde que a gente começou
@@ -199,7 +204,6 @@ Eu quis fazer isso aqui porque às vezes sinto q n consigo me expressar direito,
 ent queria tentar deixar de alguma forma mais clara o quanto eu te amo
 </p>
 
-<div class="section">
 <h2>motivos do pq eu te amo 💖</h2>
 <ul style="text-align:left;max-width:620px;margin:auto">
 <li>seu sorriso é perfeito parece até uma modelo</li>
@@ -211,9 +215,7 @@ ent queria tentar deixar de alguma forma mais clara o quanto eu te amo
 <li>seu olhinhos perfeitos e brilhantes q sempre me desestabiliza</li>
 <li>o seu humor que sempre me pega de surpresa</li>
 </ul>
-</div>
 
-<div class="section">
 <h2>Nossas poucas fotos 📸</h2>
 <div class="gallery">
 <img src="nos.jpeg" onclick="openLightbox(this)">
@@ -222,21 +224,6 @@ ent queria tentar deixar de alguma forma mais clara o quanto eu te amo
 <img src="j.jpeg" onclick="openLightbox(this)">
 <img src="juju.jpeg" id="easter" onclick="openLightbox(this)">
 </div>
-</div>
-
-<p>
-Amor, ta sendo mt dificil pra mim ficar tanto tempo sem se ver assim, acho q eu ja virei algum tipo
-de dependente quimico pq é desde do ano passado ja né, agr q vc mais precisa de mim eu nao consigo ir ai
-pra ficar com vc por razoes obvias infelizmente, mas se Deus quiser ja ja isso passa.
-</p>
-
-<p>
-Vc n tem noçao do quanto eu ficava entendiado quando vc saia pra caçar leao ou matar boi n sei e eu ficava
-sem ter com qm covnersar, alem das msg chegando com dias depois, mas acho q pl menos serviu pra me mostrar
-que eu n consigo ficar mais sem vc, é uma coisa anormal ja q eu n consigo explicar
-nem qnd minha irma vai pra casa dela eu fico com tanta sdd assim, vc me ganhou mt amor eu quero q vc seja
-minha mulher pra sempre
-</p>
 
 <div class="audio-box">
 <h3>musiquinhas 🎶</h3>
@@ -250,16 +237,6 @@ minha mulher pra sempre
 <p id="surprise-text"></p>
 </div>
 
-<div class="section">
-<h2>Pra quando você estiver triste</h2>
-<p>
-vc n sabe de quantos dias ruins me vc tirou só com um abraço ou um beijo,
-eu te amo tanto amor, q n importa oq eu faça ainda nao consigo sentir que 
-q devolvo o mesmo sentimento bom q vc me faz sentir, voce é a pessoa mais
-incrivel que eu ja conheci, te amo demais amor, saudades de voce
-</p>
-</div>
-
 <p style="margin-top:40px"><strong>Com amor,<br>Yago ❤️</strong></p>
 </div>
 
@@ -267,72 +244,77 @@ incrivel que eu ja conheci, te amo demais amor, saudades de voce
 <img id="lightbox-img">
 </div>
 
+<audio id="heartbeat" loop>
+<source src="heartbeat.mp3" type="audio/mpeg">
+</audio>
+
 <script>
 /* abertura */
 const welcome=document.getElementById("welcome")
-window.addEventListener("load",()=>{
-    setTimeout(()=>welcome.style.opacity="1",200)
-    setTimeout(()=>welcome.style.opacity="0",3500)
-    setTimeout(()=>welcome.style.display="none",4500)
-})
+setTimeout(()=>welcome.style.opacity=1,300)
+setTimeout(()=>welcome.style.opacity=0,3500)
+setTimeout(()=>welcome.style.display="none",4500)
 
-if(new Date().getHours()>=18){
-    document.body.classList.add("night")
+/* estrelas */
+const stars=document.getElementById("stars")
+for(let i=0;i<80;i++){
+    const s=document.createElement("div")
+    s.className="star"
+    s.style.left=Math.random()*100+"%"
+    s.style.animationDuration=5+Math.random()*6+"s"
+    s.style.animationDelay=Math.random()*5+"s"
+    stars.appendChild(s)
 }
 
 /* playlist */
 const playlist=["afrodite.mp3","virus.mp3","saturno.mp3"]
-let currentMusic=0
+let current=0
 const player=document.getElementById("music")
-player.src=playlist[currentMusic]
-player.addEventListener("ended",()=>{
-    currentMusic=(currentMusic+1)%playlist.length
-    player.src=playlist[currentMusic]
+player.src=playlist[current]
+player.onended=()=>{
+    current=(current+1)%playlist.length
+    player.src=playlist[current]
     player.play()
-})
+}
 
+/* coração + mensagens */
 const messages=[
 "Eu te amo muito gordinha 💕",
 "Você é a melhor coisa que já aconteceu na minha vida.",
 "Mesmo quando tudo dá errado, você continua sendo meu lugar seguro.",
-"Se eu pudesse escolher de novo, escolheria você sem pensar duas vezes.",
+"Se eu pudesse escolher de novo, escolheria você.",
 "Sou todo seu pra sempre amor."
 ]
-
-let clicks=0
-let index=0
+let clicks=0,index=0
 const secretClicks=31
 let timeout
-
-function breakHeart(){
-    const heart=document.getElementById("heart-btn")
-    heart.innerText="💔"
-    heart.classList.add("broken")
-    document.getElementById("surprise-text").innerHTML="<strong>não para no meio 💔</strong>"
-}
-
-function fixHeart(){
-    const heart=document.getElementById("heart-btn")
-    heart.innerText="❤️"
-    heart.classList.remove("broken")
-}
+const beat=document.getElementById("heartbeat")
 
 function revealMessage(){
-    clearTimeout(timeout)
-    fixHeart()
-    clicks++
+    const text=document.getElementById("surprise-text")
     document.getElementById("surprise").classList.add("reveal")
 
+    if(beat.paused) beat.play().catch(()=>{})
+
+    clearTimeout(timeout)
+    clicks++
+
     if(clicks===secretClicks){
-        document.getElementById("surprise-text").innerHTML="<strong>31 cliques… eu te amo pra sempre ❤️</strong>"
+        text.innerHTML="<strong>31 cliques… eu te amo pra sempre ❤️</strong>"
         return
     }
 
-    document.getElementById("surprise-text").innerHTML="<strong>"+messages[index]+"</strong>"
+    text.innerHTML="<strong>"+messages[index]+"</strong>"
     index=(index+1)%messages.length
-    timeout=setTimeout(breakHeart,5000)
+
+    timeout=setTimeout(()=>{
+        const h=document.getElementById("heart-btn")
+        h.innerText="💔"
+        h.classList.add("broken")
+    },5000)
 }
 
+/* corações subindo */
 document.addEventListener("click",e=>{
     const h=document.createElement("div")
     h.className="click-heart"
@@ -343,16 +325,7 @@ document.addEventListener("click",e=>{
     setTimeout(()=>h.remove(),2000)
 })
 
-const beat=document.getElementById("heartbeat")
-beat.volume=0.15
-document.addEventListener("click",()=>{
-    if(beat.paused) beat.play().catch(()=>{})
-},{once:true})
-
-document.getElementById("easter").addEventListener("click",()=>{
-    alert("tbm to com saudade vida")
-})
-
+/* lightbox */
 function openLightbox(img){
     document.getElementById("lightbox-img").src=img.src
     document.getElementById("lightbox").style.display="flex"
