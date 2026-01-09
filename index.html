@@ -14,8 +14,6 @@ body{
     text-align:center;
     overflow-x:hidden;
 }
-
-/* modo noite automático */
 body.night{
     background: radial-gradient(circle at top, #001020, #00030a);
 }
@@ -104,34 +102,6 @@ p{font-size:1.15em;line-height:1.65;margin:18px 0}
     border-radius:18px;
 }
 
-/* audio */
-.audio-box{
-    margin-top:30px;
-    padding:20px;
-    background:rgba(255,255,255,.1);
-    border-radius:15px;
-}
-
-/* botão */
-button{
-    margin-top:30px;
-    background:#d63384;
-    border:none;
-    color:white;
-    padding:14px 26px;
-    border-radius:10px;
-    font-size:1.1em;
-    cursor:pointer;
-    transition:.3s;
-}
-button:hover{
-    background:#b02a6a;
-    transform:scale(1.05);
-}
-
-.hidden{display:none}
-.reveal{display:block;margin-top:20px}
-
 /* abertura */
 #welcome{
     position:fixed;
@@ -140,32 +110,32 @@ button:hover{
     display:flex;
     justify-content:center;
     align-items:center;
-    z-index:1000;
+    z-index:2000;
     font-size:1.4em;
     padding:20px;
     opacity:0;
     transition:opacity 1s;
 }
 
-
-/* mobile */
-@media(max-width:600px){
-    .container{margin:20px 12px;padding:22px}
-    h1{font-size:2em}
-    .gallery img{width:45%;height:140px}
-    button{width:100%}
-}
-
+/* coração clicável */
 #heart-btn{
     font-size:3.2em;
     cursor:pointer;
     animation:pulse 1.5s infinite;
     user-select:none;
 }
-#heart-btn:active{
-    transform:scale(1.3);
+#heart-btn.broken{
+    animation:shake .3s infinite;
 }
-    
+@keyframes shake{
+    0%{transform:translateX(0)}
+    25%{transform:translateX(-3px)}
+    50%{transform:translateX(3px)}
+    75%{transform:translateX(-3px)}
+    100%{transform:translateX(0)}
+}
+
+/* corações ao clicar */
 .click-heart{
     position:fixed;
     font-size:22px;
@@ -177,63 +147,31 @@ button:hover{
     to{opacity:0; transform:translateY(-80px)}
 }
 
-#heart-btn.broken{
-    animation: shake .3s infinite;
-    color:#ff6b6b;
-}
+.hidden{display:none}
+.reveal{display:block;margin-top:20px}
 
-@keyframes shake{
-    0%{transform:translateX(0)}
-    25%{transform:translateX(-3px)}
-    50%{transform:translateX(3px)}
-    75%{transform:translateX(-3px)}
-    100%{transform:translateX(0)}
+@media(max-width:600px){
+    .container{margin:20px 12px;padding:22px}
+    h1{font-size:2em}
+    .gallery img{width:45%;height:140px}
 }
-
-.fog{
-    position:fixed;
-    inset:-20%;
-    background: radial-gradient(circle at center,
-        rgba(255,182,193,0.08),
-        rgba(0,0,0,0) 70%);
-    animation: fogMove 60s linear infinite;
-    pointer-events:none;
-    z-index:0;
-}
-@keyframes fogMove{
-    from{transform:translateX(-10%)}
-    to{transform:translateX(10%)}
-}
-    
-.layer1 .star{animation-duration:6s;opacity:.9}
-.layer2 .star{animation-duration:10s;opacity:.6}
-.layer3 .star{animation-duration:14s;opacity:.4}
-    
-    
 </style>
 </head>
 
 <body>
 
-<!-- mensagem de abertura -->
-<div id="welcome">
-    fiz isso pra vc gordinha ❤️
-</div>
+<div id="welcome">fiz isso pra vc gordinha ❤️</div>
 
-<div class="fog"></div>
+<audio id="heartbeat" loop>
+    <source src="heartbeat.mp3" type="audio/mpeg">
+</audio>
 
-<div class="stars">
-    <div class="stars layer1"></div>
-    <div class="stars layer2"></div>
-    <div class="stars layer3"></div>
-
-</div>
+<div class="stars"></div>
 
 <div class="container">
 <h1>pra minha mulher que ja é quase minha</h1>
 <div class="heart">❤️</div>
 
-<!-- SEUS TEXTOS -->
 <p>
 Princesa, você se tornou a pessoa que eu mais quero na minha vida, eu te amo muito mesmo,
 eu não me canso nunca de você, mesmo quando você nem ta merecendo, desde que a gente começou
@@ -256,7 +194,6 @@ Esse site é um presentinho besta para você, uma forma de sempre que vc esquece
 volta aqui e lembra do tanto você significa para mim.
 </p>
 
-<!-- ADICIONAL -->
 <p>
 Eu quis fazer isso aqui porque às vezes sinto q n consigo me expressar direito, 
 ent queria tentar deixar de alguma forma mais clara o quanto eu te amo
@@ -301,16 +238,13 @@ nem qnd minha irma vai pra casa dela eu fico com tanta sdd assim, vc me ganhou m
 minha mulher pra sempre
 </p>
 
-<!-- ADICIONAL -->
-
 <div class="audio-box">
 <h3>musiquinhas 🎶</h3>
 <audio id="music" controls style="width:100%"></audio>
 </div>
 
 <div id="heart-btn" onclick="revealMessage()">❤️</div>
-<p style="opacity:.7;font-size:.9em">clica no coração varias vezes</p>
-
+<p style="opacity:.7">clica no coração varias vezes</p>
 
 <div id="surprise" class="hidden">
 <p id="surprise-text"></p>
@@ -335,81 +269,86 @@ incrivel que eu ja conheci, te amo demais amor, saudades de voce
 
 <script>
 /* abertura */
-const welcome = document.getElementById("welcome")
+const welcome=document.getElementById("welcome")
+window.addEventListener("load",()=>{
+    setTimeout(()=>welcome.style.opacity="1",200)
+    setTimeout(()=>welcome.style.opacity="0",3500)
+    setTimeout(()=>welcome.style.display="none",4500)
+})
 
-// aparece
-setTimeout(()=>{
-    welcome.style.opacity = "1"
-},300)
-
-// some depois
-setTimeout(()=>{
-    welcome.style.opacity = "0"
-},3500)
-
-// remove da tela
-setTimeout(()=>{
-    welcome.style.display = "none"
-},4500)
-
-
-/* modo noite */
 if(new Date().getHours()>=18){
     document.body.classList.add("night")
 }
 
-/* mensagens surpresa */
+/* playlist */
+const playlist=["afrodite.mp3","virus.mp3","saturno.mp3"]
+let currentMusic=0
+const player=document.getElementById("music")
+player.src=playlist[currentMusic]
+player.addEventListener("ended",()=>{
+    currentMusic=(currentMusic+1)%playlist.length
+    player.src=playlist[currentMusic]
+    player.play()
+})
+
 const messages=[
-"Eu te amo muito gordinha, eu me apaixonei por cada centímetro seu 💕",
+"Eu te amo muito gordinha 💕",
 "Você é a melhor coisa que já aconteceu na minha vida.",
 "Mesmo quando tudo dá errado, você continua sendo meu lugar seguro.",
 "Se eu pudesse escolher de novo, escolheria você sem pensar duas vezes.",
-"Sou todo seu pra sempre amor, e n tem nada q faça isso mudar"
+"Sou todo seu pra sempre amor."
 ]
 
-let clicks = 0
-let index = 0
-const secretClicks = 31
+let clicks=0
+let index=0
+const secretClicks=31
 let timeout
 
 function breakHeart(){
-    const heart = document.getElementById("heart-btn")
-    const text = document.getElementById("surprise-text")
-    heart.innerText = "💔"
+    const heart=document.getElementById("heart-btn")
+    heart.innerText="💔"
     heart.classList.add("broken")
-    text.innerHTML = "<strong>não para no meio n 💔</strong>"
+    document.getElementById("surprise-text").innerHTML="<strong>não para no meio 💔</strong>"
 }
 
 function fixHeart(){
-    const heart = document.getElementById("heart-btn")
-    heart.innerText = "❤️"
+    const heart=document.getElementById("heart-btn")
+    heart.innerText="❤️"
     heart.classList.remove("broken")
 }
 
 function revealMessage(){
-    const box = document.getElementById("surprise")
-    const text = document.getElementById("surprise-text")
-    const heart = document.getElementById("heart-btn")
-
     clearTimeout(timeout)
     fixHeart()
-
     clicks++
-    box.classList.add("reveal")
+    document.getElementById("surprise").classList.add("reveal")
 
-    if(clicks === secretClicks){
-        text.innerHTML = "<strong>31 cliques, nossas idades somadas e você chegou até aqui 💕 eu te amo demais amor, quero viver minha vida do seu lado até quando der, quero ver esses olhinhos logo amor, to com sdd.</strong>"
+    if(clicks===secretClicks){
+        document.getElementById("surprise-text").innerHTML="<strong>31 cliques… eu te amo pra sempre ❤️</strong>"
         return
     }
 
-    text.innerHTML = "<strong>" + messages[index] + "</strong>"
-    index = (index + 1) % messages.length
-
-    timeout = setTimeout(breakHeart, 5000) // 5 segundos sem clicar
+    document.getElementById("surprise-text").innerHTML="<strong>"+messages[index]+"</strong>"
+    index=(index+1)%messages.length
+    timeout=setTimeout(breakHeart,5000)
 }
 
+document.addEventListener("click",e=>{
+    const h=document.createElement("div")
+    h.className="click-heart"
+    h.innerText="❤️"
+    h.style.left=e.clientX+"px"
+    h.style.top=e.clientY+"px"
+    document.body.appendChild(h)
+    setTimeout(()=>h.remove(),2000)
+})
 
-/* easter egg da foto */
+const beat=document.getElementById("heartbeat")
+beat.volume=0.15
+document.addEventListener("click",()=>{
+    if(beat.paused) beat.play().catch(()=>{})
+},{once:true})
+
 document.getElementById("easter").addEventListener("click",()=>{
     alert("tbm to com saudade vida")
 })
@@ -421,72 +360,7 @@ function openLightbox(img){
 function closeLightbox(){
     document.getElementById("lightbox").style.display="none"
 }
-    /* ===== PLAYLIST DE MÚSICAS ===== */
-const playlist = [
-    "afrodite.mp3",
-    "virus.mp3",
-    "saturno.mp3"
-];
-
-<audio id="heartbeat" loop>
-    <source src="heartbeat.mp3" type="audio/mpeg">
-</audio>
-
-    
-let currentMusic = 0;
-const player = document.getElementById("music");
-
-player.src = playlist[currentMusic];
-
-player.addEventListener("ended", () => {
-    currentMusic = (currentMusic + 1) % playlist.length;
-    player.src = playlist[currentMusic];
-    player.play();
-});
-
-document.addEventListener("click", e=>{
-    const heart=document.createElement("div")
-    heart.className="click-heart"
-    heart.innerText="❤️"
-    heart.style.left=e.clientX+"px"
-    heart.style.top=e.clientY+"px"
-    document.body.appendChild(heart)
-    setTimeout(()=>heart.remove(),2000)
-})
-
-function createStars(layer, amount){
-    for(let i=0;i<amount;i++){
-        const star=document.createElement("div")
-        star.className="star"
-        star.style.left=Math.random()*100+"%"
-        star.style.animationDelay=Math.random()*10+"s"
-        star.style.width=star.style.height=
-            Math.random()*2+1+"px"
-        layer.appendChild(star)
-    }
-}
-createStars(document.querySelector(".layer1"),25)
-createStars(document.querySelector(".layer2"),18)
-createStars(document.querySelector(".layer3"),12)
-
-const beat=document.getElementById("heartbeat")
-beat.volume=0.15
-
-document.addEventListener("click",()=>{
-    if(beat.paused){
-        beat.play().catch(()=>{})
-    }
-},{once:true})
-    
-    
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
