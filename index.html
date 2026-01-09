@@ -174,6 +174,38 @@ button:hover{
     to{opacity:0; transform:translateY(-80px)}
 }
 
+#heart-btn.broken{
+    animation: shake .3s infinite;
+    color:#ff6b6b;
+}
+
+@keyframes shake{
+    0%{transform:translateX(0)}
+    25%{transform:translateX(-3px)}
+    50%{transform:translateX(3px)}
+    75%{transform:translateX(-3px)}
+    100%{transform:translateX(0)}
+}
+
+.fog{
+    position:fixed;
+    inset:-20%;
+    background: radial-gradient(circle at center,
+        rgba(255,182,193,0.08),
+        rgba(0,0,0,0) 70%);
+    animation: fogMove 60s linear infinite;
+    pointer-events:none;
+    z-index:0;
+}
+@keyframes fogMove{
+    from{transform:translateX(-10%)}
+    to{transform:translateX(10%)}
+}
+    
+.layer1 .star{animation-duration:6s;opacity:.9}
+.layer2 .star{animation-duration:10s;opacity:.6}
+.layer3 .star{animation-duration:14s;opacity:.4}
+    
     
 </style>
 </head>
@@ -185,12 +217,13 @@ button:hover{
     fiz isso pra vc gordinha ❤️
 </div>
 
+<div class="fog"></div>
+
 <div class="stars">
-    <div class="star" style="left:10%"></div>
-    <div class="star" style="left:30%"></div>
-    <div class="star" style="left:50%"></div>
-    <div class="star" style="left:70%"></div>
-    <div class="star" style="left:90%"></div>
+    <div class="stars layer1"></div>
+    <div class="stars layer2"></div>
+    <div class="stars layer3"></div>
+
 </div>
 
 <div class="container">
@@ -317,24 +350,47 @@ const messages=[
 "Sou todo seu pra sempre amor, e n tem nada q faça isso mudar"
 ]
 
-let clicks=0
-let index=0
-const secretClicks=31
+let clicks = 0
+let index = 0
+const secretClicks = 31
+let timeout
+
+function breakHeart(){
+    const heart = document.getElementById("heart-btn")
+    const text = document.getElementById("surprise-text")
+    heart.innerText = "💔"
+    heart.classList.add("broken")
+    text.innerHTML = "<strong>não para no meio n 💔</strong>"
+}
+
+function fixHeart(){
+    const heart = document.getElementById("heart-btn")
+    heart.innerText = "❤️"
+    heart.classList.remove("broken")
+}
 
 function revealMessage(){
+    const box = document.getElementById("surprise")
+    const text = document.getElementById("surprise-text")
+    const heart = document.getElementById("heart-btn")
+
+    clearTimeout(timeout)
+    fixHeart()
+
     clicks++
-    const box=document.getElementById("surprise")
-    const text=document.getElementById("surprise-text")
     box.classList.add("reveal")
 
-    if(clicks===secretClicks){
-        text.innerHTML="<strong>se você chegou aqui é porque eu realmente te amo muito, viu amor ❤️</strong>"
+    if(clicks === secretClicks){
+        text.innerHTML = "<strong>31 cliques, nossas idades somadas e você chegou até aqui 💕 eu te amo demais amor, quero viver minha vida do seu lado até quando der, quero ver esses olhinhos logo amor, to com sdd.</strong>"
         return
     }
 
-    text.innerHTML="<strong>"+messages[index]+"</strong>"
-    index=(index+1)%messages.length
+    text.innerHTML = "<strong>" + messages[index] + "</strong>"
+    index = (index + 1) % messages.length
+
+    timeout = setTimeout(breakHeart, 5000) // 5 segundos sem clicar
 }
+
 
 /* easter egg da foto */
 document.getElementById("easter").addEventListener("click",()=>{
@@ -355,6 +411,11 @@ const playlist = [
     "saturno.mp3"
 ];
 
+<audio id="heartbeat" loop>
+    <source src="heartbeat.mp3" type="audio/mpeg">
+</audio>
+
+    
 let currentMusic = 0;
 const player = document.getElementById("music");
 
@@ -376,11 +437,36 @@ document.addEventListener("click", e=>{
     setTimeout(()=>heart.remove(),2000)
 })
 
+function createStars(layer, amount){
+    for(let i=0;i<amount;i++){
+        const star=document.createElement("div")
+        star.className="star"
+        star.style.left=Math.random()*100+"%"
+        star.style.animationDelay=Math.random()*10+"s"
+        star.style.width=star.style.height=
+            Math.random()*2+1+"px"
+        layer.appendChild(star)
+    }
+}
+createStars(document.querySelector(".layer1"),25)
+createStars(document.querySelector(".layer2"),18)
+createStars(document.querySelector(".layer3"),12)
+
+const beat=document.getElementById("heartbeat")
+beat.volume=0.15
+
+document.addEventListener("click",()=>{
+    if(beat.paused){
+        beat.play().catch(()=>{})
+    }
+},{once:true})
+    
     
 </script>
 
 </body>
 </html>
+
 
 
 
