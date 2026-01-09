@@ -289,8 +289,16 @@ let clicks=0,index=0
 const secretClicks=31
 let timeout
 const beat=document.getElementById("heartbeat")
+    beat.volume = 0.05
+
 
 function revealMessage(){
+    const heart = document.getElementById("heart-btn")
+
+    // reconstrói ao voltar a clicar
+    heart.innerText = "❤️"
+    heart.classList.remove("broken")
+
     const text=document.getElementById("surprise-text")
     document.getElementById("surprise").classList.add("reveal")
 
@@ -337,4 +345,5 @@ function closeLightbox(){
 
 </body>
 </html>
+
 
