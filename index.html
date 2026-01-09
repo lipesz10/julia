@@ -15,6 +15,11 @@ body{
     overflow-x:hidden;
 }
 
+/* modo noite automático */
+body.night{
+    background: radial-gradient(circle at top, #001020, #00030a);
+}
+
 /* estrelas */
 .stars{
     position:fixed;
@@ -48,17 +53,9 @@ body{
     backdrop-filter: blur(6px);
 }
 
-h1{
-    color:#ffb6c1;
-    font-size:2.5em;
-    margin-bottom:20px;
-}
-
-p{
-    font-size:1.15em;
-    line-height:1.65;
-    margin:18px 0;
-}
+h1{color:#ffb6c1;font-size:2.5em}
+h2{color:#ffd1dc}
+p{font-size:1.15em;line-height:1.65;margin:18px 0}
 
 .heart{
     font-size:3.2em;
@@ -69,25 +66,13 @@ p{
     50%{transform:scale(1.18)}
 }
 
-.section{
-    margin-top:40px;
-}
-
-.reasons{
-    text-align:left;
-    max-width:620px;
-    margin:auto;
-}
-.reasons li{
-    margin:10px 0;
-}
+.section{margin-top:40px}
 
 /* galeria */
 .gallery{
     display:flex;
     justify-content:center;
     flex-wrap:wrap;
-    margin-top:20px;
 }
 .gallery img{
     width:160px;
@@ -147,195 +132,200 @@ button:hover{
 .hidden{display:none}
 .reveal{display:block;margin-top:20px}
 
-/* corações ao clicar */
-.click-heart{
+/* abertura */
+#welcome{
     position:fixed;
-    font-size:22px;
-    animation: floatUp 2s ease forwards;
-    pointer-events:none;
-}
-@keyframes floatUp{
-    from{opacity:1; transform:translateY(0)}
-    to{opacity:0; transform:translateY(-80px)}
+    inset:0;
+    background:rgba(0,0,0,.85);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:1000;
+    font-size:1.4em;
+    padding:20px;
 }
 
-/* ===== versão mobile ===== */
-@media (max-width: 600px){
-    .container{
-        margin:20px 12px;
-        padding:22px;
-    }
-    h1{
-        font-size:2em;
-    }
-    p{
-        font-size:1.05em;
-    }
-    .gallery img{
-        width:45%;
-        height:140px;
-        margin:6px;
-    }
-    button{
-        width:100%;
-        font-size:1.15em;
-        padding:16px;
-    }
+/* mobile */
+@media(max-width:600px){
+    .container{margin:20px 12px;padding:22px}
+    h1{font-size:2em}
+    .gallery img{width:45%;height:140px}
+    button{width:100%}
 }
 </style>
 </head>
 
 <body>
 
+<!-- mensagem de abertura -->
+<div id="welcome">
+    fiz isso pra vc gordinha ❤️
+</div>
+
 <div class="stars">
     <div class="star" style="left:10%"></div>
-    <div class="star" style="left:25%"></div>
-    <div class="star" style="left:40%"></div>
-    <div class="star" style="left:55%"></div>
+    <div class="star" style="left:30%"></div>
+    <div class="star" style="left:50%"></div>
     <div class="star" style="left:70%"></div>
-    <div class="star" style="left:85%"></div>
+    <div class="star" style="left:90%"></div>
 </div>
 
 <div class="container">
-    <h1>pra minha mulher que ja é quase minha</h1>
-    <div class="heart">❤️</div>
+<h1>pra minha mulher que ja é quase minha</h1>
+<div class="heart">❤️</div>
 
-    <p>
-        Princesa, você se tornou a pessoa que eu mais quero na minha vida, eu te amo muito mesmo,
-        eu não me canso nunca de você, mesmo quando você nem ta merecendo, desde que a gente começou
-        a conversar minha vida melhorou demais, parece que você trouxe sorte pra mim e eu torço muito
-        pra que eu também tenha levado a msm sorte pra sua vida, eu nao consigo mais me imaginar sem vc, 
-        todos os meus planos voce ta no meio, e eu espero q todos eles se tornem realidade logo
-    </p>
+<!-- SEUS TEXTOS -->
+<p>
+Princesa, você se tornou a pessoa que eu mais quero na minha vida, eu te amo muito mesmo,
+eu não me canso nunca de você, mesmo quando você nem ta merecendo, desde que a gente começou
+a conversar minha vida melhorou demais, parece que você trouxe sorte pra mim e eu torço muito
+pra que eu também tenha levado a msm sorte pra sua vida, eu nao consigo mais me imaginar sem vc, 
+todos os meus planos voce ta no meio, e eu espero q todos eles se tornem realidade logo
+</p>
 
-    <p>
-        Júlia, você é a pessoa mais incrível que eu já conheci. sua beleza, sua inteligência um pouco
-        questionável, seu humor, tudo em você me ganhou por inteiro. Eu te amo mais do que palavras
-        podem expressar. Obrigado por ter me escolhido pra ficar ao meu lado, por me fazer feliz e por
-        ser vc bb, eu espero muito q nesse ano nós dois consigamos ser mt mais felizes juntos do q nós temos 
-        planejado, eu amo cada centimetro seu, sua personalidade sua risada, tudo.
-        Mt obrigado por estar do meu lado nesses ultimos meses amor, vc n sabe o qnt vc melhorou eles
-    </p>
+<p>
+Júlia, você é a pessoa mais incrível que eu já conheci. sua beleza, sua inteligência um pouco
+questionável, seu humor, tudo em você me ganhou por inteiro. Eu te amo mais do que palavras
+podem expressar. Obrigado por ter me escolhido pra ficar ao meu lado, por me fazer feliz e por
+ser vc bb, eu espero muito q nesse ano nós dois consigamos ser mt mais felizes juntos do q nós temos 
+planejado, eu amo cada centimetro seu, sua personalidade sua risada, tudo.
+Mt obrigado por estar do meu lado nesses ultimos meses amor, vc n sabe o qnt vc melhorou eles
+</p>
 
-    <p>
-        Esse site é um presentinho besta para você, uma forma de sempre que vc esquecer que eu te amo,
-        volta aqui e lembra do tanto você significa para mim.
-    </p>
+<p>
+Esse site é um presentinho besta para você, uma forma de sempre que vc esquecer que eu te amo,
+volta aqui e lembra do tanto você significa para mim.
+</p>
 
-    <!-- CONTADOR -->
-    <div class="section">
-        <h2>Nosso tempo juntos ⏳</h2>
-        <p id="counter"></p>
-    </div>
+<!-- ADICIONAL -->
+<p>
+Eu quis fazer isso aqui porque às vezes sinto q n consigo me expressar direito, 
+ent queria tentar deixar de alguma forma mais clara o quanto eu te amo
+</p>
 
-    <div class="section">
-        <h2>Razões pelas quais eu te amo 💖</h2>
-        <ul class="reasons">
-            <li>seu sorriso é perfeito parece até uma modelo</li>
-            <li>o jeito q você ri das minhas piadas idiotas e muitas vzs ofensivas</li>
-            <li>seu jeito unico e independente, sua personalidade forte que sempre me ganha</li>
-            <li>como você me faz sentir especial, mesmo nos dias ruins e mesmo quando vc n ta bem</li>
-            <li>o seu corpo astral que sempre faz meu coração bater mais rapido</li>
-            <li>seu cabelo tao lindo e unico q nao é loiro</li>
-            <li>seu olhinhos perfeitos e brilhantes q sempre me desestabiliza</li>
-            <li>o seu humor que sempre me pega de surpresa</li>
-        </ul>
-    </div>
+<div class="section">
+<h2>motivos do pq eu te amo 💖</h2>
+<ul style="text-align:left;max-width:620px;margin:auto">
+<li>seu sorriso é perfeito parece até uma modelo</li>
+<li>o jeito q você ri das minhas piadas idiotas e muitas vzs ofensivas</li>
+<li>seu jeito unico e independente, sua personalidade forte que sempre me ganha</li>
+<li>como você me faz sentir especial, mesmo nos dias ruins e mesmo quando vc n ta bem</li>
+<li>o seu corpo astral que sempre faz meu coração bater mais rapido</li>
+<li>seu cabelo tao lindo e unico q nao é loiro</li>
+<li>seu olhinhos perfeitos e brilhantes q sempre me desestabiliza</li>
+<li>o seu humor que sempre me pega de surpresa</li>
+</ul>
+</div>
 
-    <div class="section">
-        <h2>Nossas poucas fotos 📸</h2>
-        <div class="gallery">
-            <img src="nos.jpeg" onclick="openLightbox(this)">
-            <img src="juu.jpeg" onclick="openLightbox(this)">
-            <img src="jjj.jpeg" onclick="openLightbox(this)">
-            <img src="j.jpeg" onclick="openLightbox(this)">
-            <img src="juju.jpeg" onclick="openLightbox(this)">
-        </div>
-    </div>
+<div class="section">
+<h2>Nossas poucas fotos 📸</h2>
+<div class="gallery">
+<img src="nos.jpeg" onclick="openLightbox(this)">
+<img src="juu.jpeg" onclick="openLightbox(this)">
+<img src="jjj.jpeg" onclick="openLightbox(this)">
+<img src="j.jpeg" onclick="openLightbox(this)">
+<img src="juju.jpeg" id="easter" onclick="openLightbox(this)">
+</div>
+</div>
 
-    <!-- PROMESSA -->
-    <div class="section">
-        
-        <p>
-            independentemente do que aconteça, independente de brigas, desintendimentos, dias ruins, até se vc virar um sapão, eu prometo sempre te amar vida, 
-        </p>
-    </div>
+<p>
+Amor, ta sendo mt dificil pra mim ficar tanto tempo sem se ver assim, acho q eu ja virei algum tipo
+de dependente quimico pq é desde do ano passado ja né, agr q vc mais precisa de mim eu nao consigo ir ai
+pra ficar com vc por razoes obvias infelizmente, mas se Deus quiser ja ja isso passa.
+</p>
 
-    <div class="section audio-box">
-        <h3>musiquinha pra você 🎶</h3>
-        <audio controls loop style="width:100%">
-            <source src="afrodite.mp3" type="audio/mpeg">
-        </audio>
-    </div>
+<p>
+Vc n tem noçao do quanto eu ficava entendiado quando vc saia pra caçar leao ou matar boi n sei e eu ficava
+sem ter com qm covnersar, alem das msg chegando com dias depois, mas acho q pl menos serviu pra me mostrar
+que eu n consigo ficar mais sem vc, é uma coisa anormal ja q eu n consigo explicar
+nem qnd minha irma vai pra casa dela eu fico com tanta sdd assim, vc me ganhou mt amor eu quero q vc seja
+minha mulher pra sempre
+</p>
 
-    <button onclick="revealMessage()">clica varias vezes</button>
+<!-- ADICIONAL -->
 
-    <div id="surprise" class="hidden">
-        <p id="surprise-text"></p>
-    </div>
+<div class="audio-box">
+<h3>Uma música pra você 🎶</h3>
+<audio id="music" controls loop style="width:100%">
+<source src="afrodite.mp3" type="audio/mpeg">
+</audio>
+</div>
+
+<button onclick="revealMessage()">clica várias vezes</button>
+
+<div id="surprise" class="hidden">
+<p id="surprise-text"></p>
+</div>
+
+<div class="section">
+<h2>Pra quando você estiver triste</h2>
+<p>
+vc n sabe de quantos dias ruins me vc tirou só com um abraço ou um beijo,
+eu te amo tanto amor, q n importa oq eu faça ainda nao consigo sentir que 
+q devolvo o mesmo sentimento bom q vc me faz sentir, voce é a pessoa mais
+incrivel que eu ja conheci, te amo demais amor, saudades de voce
+</p>
+</div>
+
+<p style="margin-top:40px"><strong>Com amor,<br>Yago ❤️</strong></p>
 </div>
 
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-    <img id="lightbox-img">
+<img id="lightbox-img">
 </div>
 
 <script>
-/* mensagens surpresa */
-const messages = [
-"Eu te amo muito gordinha, eu me apaixonei por cada centimetro do seu corpo, até aqueles que eu nem vi ainda, e nem preciso pq o que eu sinto por vc é mto maior que isso. 💕",
-"Você é a melhor coisa que já aconteceu na minha vida.",
-"Mesmo quando a tudo dando errado, vc sempre me salva.",
-"Se eu pudesse recomeçar, faria tudo igual pra sentir as mesmas coisas q eu senti da primeira vez.",
-"Sou seu pra sempre amor, n tem nada q faça isso mudar",
-"Eu me apaixonei por você todos os dias desde q a gente se conheceu .",
+/* abertura */
+setTimeout(()=>{
+    document.getElementById("welcome").style.display="none"
+},3500)
 
-];
-let index = 0;
+/* modo noite */
+if(new Date().getHours()>=18){
+    document.body.classList.add("night")
+}
+
+/* mensagens surpresa */
+const messages=[
+"Eu te amo muito gordinha, eu me apaixonei por cada centímetro seu 💕",
+"Você é a melhor coisa que já aconteceu na minha vida.",
+"Mesmo quando tudo dá errado, você continua sendo meu lugar seguro.",
+"Se eu pudesse escolher de novo, escolheria você sem pensar duas vezes.",
+"Meu coração é seu, hoje, amanhã e sempre."
+]
+
+let clicks=0
+let index=0
+const secretClicks=31
 
 function revealMessage(){
-    const box = document.getElementById("surprise");
-    const text = document.getElementById("surprise-text");
-    box.classList.add("reveal");
-    text.innerHTML = "<strong>" + messages[index] + "</strong>";
-    index = (index + 1) % messages.length;
+    clicks++
+    const box=document.getElementById("surprise")
+    const text=document.getElementById("surprise-text")
+    box.classList.add("reveal")
+
+    if(clicks===secretClicks){
+        text.innerHTML="<strong>se você chegou aqui é porque eu realmente te amo muito, viu amor ❤️</strong>"
+        return
+    }
+
+    text.innerHTML="<strong>"+messages[index]+"</strong>"
+    index=(index+1)%messages.length
 }
 
-/* lightbox */
+/* easter egg da foto */
+document.getElementById("easter").addEventListener("click",()=>{
+    alert("tbm to com saudade vida")
+})
+
 function openLightbox(img){
-    document.getElementById("lightbox-img").src = img.src;
-    document.getElementById("lightbox").style.display="flex";
+    document.getElementById("lightbox-img").src=img.src
+    document.getElementById("lightbox").style.display="flex"
 }
 function closeLightbox(){
-    document.getElementById("lightbox").style.display="none";
+    document.getElementById("lightbox").style.display="none"
 }
-
-/* contador */
-const startDate = new Date("2025-09-06"); // MUDA A DATA SE QUISER
-function updateCounter(){
-    const now = new Date();
-    const diff = now - startDate;
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    document.getElementById("counter").innerText =
-        `ja passaram ${days} dias desde que você virou o amor da minha vida 💕`;
-}
-updateCounter();
-
-/* corações ao clicar */
-document.addEventListener("click", e=>{
-    const heart = document.createElement("div");
-    heart.className = "click-heart";
-    heart.innerText = "❤️";
-    heart.style.left = e.clientX + "px";
-    heart.style.top = e.clientY + "px";
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(), 2000);
-});
 </script>
 
 </body>
 </html>
-
-
-
-
-
