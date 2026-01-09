@@ -344,7 +344,7 @@ document.addEventListener("click",e=>{
 })
 
 const beat=document.getElementById("heartbeat")
-beat.volume=0.15
+beat.volume=1
 document.addEventListener("click",()=>{
     if(beat.paused) beat.play().catch(()=>{})
 },{once:true})
@@ -364,3 +364,4 @@ function closeLightbox(){
 
 </body>
 </html>
+
