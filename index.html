@@ -166,7 +166,8 @@ p{font-size:1.15em;line-height:1.65;margin:18px 0}
     <source src="heartbeat.mp3" type="audio/mpeg">
 </audio>
 
-<div class="stars"></div>
+<div class="stars" id="stars"></div>
+
 
 <div class="container">
 <h1>pra minha mulher que ja é quase minha</h1>
@@ -360,8 +361,21 @@ function openLightbox(img){
 function closeLightbox(){
     document.getElementById("lightbox").style.display="none"
 }
+    /* ===== ESTRELAS ===== */
+const starsContainer = document.getElementById("stars");
+
+for(let i = 0; i < 80; i++){
+    const star = document.createElement("div");
+    star.className = "star";
+    star.style.left = Math.random() * 100 + "%";
+    star.style.animationDelay = Math.random() * 7 + "s";
+    star.style.opacity = Math.random();
+    starsContainer.appendChild(star);
+}
+
 </script>
 
 </body>
 </html>
+
 
