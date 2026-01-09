@@ -341,9 +341,18 @@ function openLightbox(img){
 function closeLightbox(){
     document.getElementById("lightbox").style.display="none"
 }
+    /* segredo da imagem */
+const easter = document.getElementById("easter")
+
+easter.addEventListener("click", (e) => {
+    e.stopPropagation() // não interfere no lightbox
+    alert("tbm to com saudade vida ❤️")
+})
+
 </script>
 
 </body>
 </html>
+
 
 
