@@ -246,9 +246,7 @@ minha mulher pra sempre
 
 <div class="audio-box">
 <h3>Uma música pra você 🎶</h3>
-<audio id="music" controls loop style="width:100%">
-<source src="afrodite.mp3" type="audio/mpeg">
-</audio>
+<audio id="music" controls style="width:100%"></audio>
 </div>
 
 <button onclick="revealMessage()">clica várias vezes</button>
@@ -325,7 +323,25 @@ function openLightbox(img){
 function closeLightbox(){
     document.getElementById("lightbox").style.display="none"
 }
+    /* ===== PLAYLIST DE MÚSICAS ===== */
+const playlist = [
+    "afrodite.mp3",
+    "musica2.mp3",
+    "musica3.mp3"
+];
+
+let currentMusic = 0;
+const player = document.getElementById("music");
+
+player.src = playlist[currentMusic];
+
+player.addEventListener("ended", () => {
+    currentMusic = (currentMusic + 1) % playlist.length;
+    player.src = playlist[currentMusic];
+    player.play();
+});
 </script>
 
 </body>
 </html>
+
