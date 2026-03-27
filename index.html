@@ -690,30 +690,6 @@ document.addEventListener("keydown", (e)=>{
         player.style.left = e.clientX+"px"
     })
 
-    let interval = setInterval(()=>{
-        const obs = document.createElement("div")
-        obs.innerText="💔"
-        obs.style.position="fixed"
-        obs.style.top="0"
-        obs.style.left=Math.random()*100+"%"
-        document.body.appendChild(obs)
-
-        let fall = setInterval(()=>{
-            obs.style.top = (obs.offsetTop+5)+"px"
-
-            if(obs.offsetTop > window.innerHeight){
-                obs.remove()
-                clearInterval(fall)
-            }
-        },30)
-    },500)
-
-    setTimeout(()=>{
-        clearInterval(interval)
-        alert("vc desviou de tudo 😭 msm longe só penso em vc")
-        player.remove()
-    },10000)
-}
 
     function loveTest(){
     let percent = Math.floor(Math.random()*101)
