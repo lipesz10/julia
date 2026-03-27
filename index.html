@@ -362,8 +362,173 @@ easter.addEventListener("click", (e) => {
     e.stopPropagation() // não interfere no lightbox
     alert("tbm to com saudade vida ❤️")
 })
+   
+
+/* =========================
+   MODO DIA/NOITE
+========================= */
+const toggleBtn = document.createElement("button")
+toggleBtn.innerText = "🌙"
+toggleBtn.style.position = "fixed"
+toggleBtn.style.top = "15px"
+toggleBtn.style.right = "15px"
+toggleBtn.style.zIndex = "2000"
+toggleBtn.style.padding = "10px"
+toggleBtn.style.borderRadius = "10px"
+toggleBtn.style.border = "none"
+toggleBtn.style.cursor = "pointer"
+document.body.appendChild(toggleBtn)
+
+toggleBtn.onclick = () => {
+    document.body.classList.toggle("night")
+}
+
+/* =========================
+   CONTADOR DE TEMPO JUNTOS
+========================= */
+const startDate = new Date("2025-01-01") // MUDA AQUI
+const timer = document.createElement("p")
+timer.style.opacity = "0.7"
+document.querySelector(".container").appendChild(timer)
+
+setInterval(()=>{
+    const now = new Date()
+    const diff = now - startDate
+
+    const days = Math.floor(diff / (1000*60*60*24))
+    timer.innerText = `💞 juntos há ${days} dias`
+},1000)
+
+/* =========================
+   MENSAGEM ALEATÓRIA
+========================= */
+const randomBtn = document.createElement("button")
+randomBtn.innerText = "💌 mensagem surpresa"
+randomBtn.style.marginTop = "20px"
+randomBtn.style.padding = "10px"
+randomBtn.style.borderRadius = "10px"
+randomBtn.style.border = "none"
+randomBtn.style.cursor = "pointer"
+
+document.querySelector(".container").appendChild(randomBtn)
+
+randomBtn.onclick = () => {
+    const msg = messages[Math.floor(Math.random()*messages.length)]
+    alert(msg)
+}
+
+/* =========================
+   CONTADOR DE CLIQUES
+========================= */
+const counter = document.createElement("p")
+counter.style.opacity = "0.6"
+document.querySelector(".container").appendChild(counter)
+
+function updateCounter(){
+    counter.innerText = `❤️ cliques: ${clicks}`
+}
+
+/* =========================
+   FOGOS DE ARTIFÍCIO
+========================= */
+function fireworks(){
+    for(let i=0;i<30;i++){
+        const f = document.createElement("div")
+        f.innerText = "✨"
+        f.style.position="fixed"
+        f.style.left = Math.random()*100+"%"
+        f.style.top = Math.random()*100+"%"
+        f.style.fontSize="20px"
+        document.body.appendChild(f)
+
+        setTimeout(()=>f.remove(),1500)
+    }
+}
+
+/* =========================
+   CURSOR COM RASTRO
+========================= */
+document.addEventListener("mousemove", e=>{
+    const dot = document.createElement("div")
+    dot.style.position="fixed"
+    dot.style.left=e.clientX+"px"
+    dot.style.top=e.clientY+"px"
+    dot.style.width="5px"
+    dot.style.height="5px"
+    dot.style.background="white"
+    dot.style.borderRadius="50%"
+    dot.style.pointerEvents="none"
+    document.body.appendChild(dot)
+
+    setTimeout(()=>dot.remove(),500)
+})
+
+/* =========================
+   FRASES AUTOMÁTICAS
+========================= */
+setInterval(()=>{
+    const msg = document.createElement("div")
+    msg.innerText = "❤️"
+    msg.style.position="fixed"
+    msg.style.left=Math.random()*100+"%"
+    msg.style.top="100%"
+    msg.style.fontSize="20px"
+    msg.style.opacity="0.5"
+    msg.style.animation="floatUp 3s linear"
+
+    document.body.appendChild(msg)
+    setTimeout(()=>msg.remove(),3000)
+},1500)
+
+/* =========================
+   MELHORIA NO HEART CLICK
+========================= */
+const oldReveal = revealMessage
+revealMessage = function(){
+    oldReveal()
+    updateCounter()
+
+    // vibração (celular)
+    if(navigator.vibrate) navigator.vibrate(50)
+
+    // corações aleatórios
+    const hearts = ["❤️","💖","💘","💕","💞"]
+    const h = document.createElement("div")
+    h.innerText = hearts[Math.floor(Math.random()*hearts.length)]
+    h.className="click-heart"
+    h.style.left = Math.random()*100+"%"
+    h.style.top = Math.random()*100+"%"
+    document.body.appendChild(h)
+    setTimeout(()=>h.remove(),2000)
+
+    if(clicks === secretClicks){
+        fireworks()
+    }
+}
+
+/* =========================
+   ANIMAÇÃO RESPIRAÇÃO
+========================= */
+document.querySelector(".container").animate([
+    {transform:"scale(1)"},
+    {transform:"scale(1.01)"},
+    {transform:"scale(1)"}
+],{
+    duration:4000,
+    iterations:Infinity
+})
+
+/* =========================
+   AUTO PLAY SUAVE
+========================= */
+player.volume = 0
+setTimeout(()=>{
+    player.volume = 1
+},2000)
 
 </script>
+
+
 
 </body>
 </html>
