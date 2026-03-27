@@ -577,59 +577,122 @@ function huntHeart(){
 }
 function puzzleGame(){
 
+    const size = parseInt(prompt("dificuldade? (3-8)") || 6)
+    const total = size * size
+
     const overlay = document.createElement("div")
     overlay.style.position="fixed"
     overlay.style.inset="0"
     overlay.style.background="#000"
-    overlay.style.display="grid"
-    overlay.style.gridTemplateColumns="repeat(3,1fr)"
-    overlay.style.gridTemplateRows="repeat(3,1fr)"
+    overlay.style.display="flex"
+    overlay.style.flexDirection="column"
     overlay.style.zIndex="9999"
 
     document.body.appendChild(overlay)
 
-    let pieces = []
-    for(let i=0;i<9;i++) pieces.push(i)
+    // topo (timer + sair)
+    const topBar = document.createElement("div")
+    topBar.style.display="flex"
+    topBar.style.justifyContent="space-between"
+    topBar.style.padding="10px"
+    topBar.style.color="white"
 
-    // embaralhar
-    pieces.sort(()=>Math.random()-0.5)
+    const timer = document.createElement("span")
+    const exit = document.createElement("button")
+    exit.innerText = "sair ❌"
+    exit.onclick = ()=> overlay.remove()
 
-    let selected = null
+    topBar.appendChild(timer)
+    topBar.appendChild(exit)
+    overlay.appendChild(topBar)
 
-    pieces.forEach((n,index)=>{
+    // grid
+    const grid = document.createElement("div")
+    grid.style.flex="1"
+    grid.style.display="grid"
+    grid.style.gridTemplateColumns=`repeat(${size},1fr)`
+    grid.style.gridTemplateRows=`repeat(${size},1fr)`
+
+    overlay.appendChild(grid)
+
+    let order = [...Array(total).keys()]
+
+    do {
+        order.sort(()=>Math.random()-0.5)
+    } while(order.every((v,i)=>v===i))
+
+    let selectedIndex = null
+
+    order.forEach((n,i)=>{
         const p = document.createElement("div")
         p.style.border="1px solid white"
         p.style.backgroundImage="url(quebra.jpeg)"
-        p.style.backgroundSize="300% 300%"
-        
-        const x = n % 3
-        const y = Math.floor(n / 3)
+        p.style.cursor="pointer"
 
-        p.style.backgroundPosition = `${x*50}% ${y*50}%`
-
-        p.dataset.correct = n
-        p.dataset.index = index
+        updatePiece(p, n)
 
         p.onclick = ()=>{
-            if(selected === null){
-                selected = p
-                p.style.outline = "3px solid red"
+            if(selectedIndex === null){
+                selectedIndex = i
+                p.style.outline="2px solid red"
             }else{
-                // troca posições
-                const temp = p.style.backgroundPosition
-                p.style.backgroundPosition = selected.style.backgroundPosition
-                selected.style.backgroundPosition = temp
-
-                selected.style.outline = "none"
-                selected = null
-
+                [order[i], order[selectedIndex]] = [order[selectedIndex], order[i]]
+                updateAll()
+                selectedIndex = null
                 checkWin()
             }
         }
 
-        overlay.appendChild(p)
+        grid.appendChild(p)
     })
 
+    function updatePiece(piece, n){
+        const x = n % size
+        const y = Math.floor(n / size)
+
+        piece.style.backgroundSize = `${size*100}% ${size*100}%`
+        piece.style.backgroundPosition = `${(x/(size-1))*100}% ${(y/(size-1))*100}%`
+    }
+
+    function updateAll(){
+        grid.childNodes.forEach((p,i)=>{
+            p.style.outline="none"
+            updatePiece(p, order[i])
+        })
+    }
+
+    function checkWin(){
+        if(order.every((v,i)=>v===i)){
+            setTimeout(()=>{
+                winEffect()
+                alert(`vc montou a gente 💖 em ${seconds}s`)
+                overlay.remove()
+            },300)
+        }
+    }
+
+    // ⏱️ TIMER
+    let seconds = 0
+    const interval = setInterval(()=>{
+        seconds++
+        timer.innerText = `⏱️ ${seconds}s`
+    },1000)
+
+    // 💥 EFEITO DE VITÓRIA
+    function winEffect(){
+        for(let i=0;i<50;i++){
+            const h = document.createElement("div")
+            h.innerText = "💖"
+            h.style.position="fixed"
+            h.style.left=Math.random()*100+"%"
+            h.style.top=Math.random()*100+"%"
+            h.style.fontSize="20px"
+            document.body.appendChild(h)
+
+            setTimeout(()=>h.remove(),1500)
+        }
+    }
+}
     function checkWin(){
         let correct = true
 
@@ -690,7 +753,6 @@ gameBox.innerHTML = `
 <button onclick="huntHeart()">❤️ caça coração</button>
 <button onclick="puzzleGame()">🧩 puzzle</button>
 <button onclick="loveWheel()">🎲 roleta</button>
-<button onclick="dodgeGame()">🎮 desviar</button>
 <button onclick="loveTest()">💯 teste amor</button>
 `
 
