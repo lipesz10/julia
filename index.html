@@ -600,7 +600,6 @@ function puzzleGame(){
     const timer = document.createElement("span")
     const exit = document.createElement("button")
     exit.innerText = "sair ❌"
-    exit.onclick = ()=> overlay.remove()
 
     topBar.appendChild(timer)
     topBar.appendChild(exit)
@@ -661,54 +660,24 @@ function puzzleGame(){
         })
     }
 
-    function checkWin(){
-        if(order.every((v,i)=>v===i)){
-            setTimeout(()=>{
-                winEffect()
-                alert(`vc montou a gente 💖 em ${seconds}s`)
-                overlay.remove()
-            },300)
-        }
-    }
-
-    // ⏱️ TIMER
+    // ⏱️ TIMER (corrigido)
     let seconds = 0
     const interval = setInterval(()=>{
         seconds++
         timer.innerText = `⏱️ ${seconds}s`
     },1000)
 
-    // 💥 EFEITO DE VITÓRIA
-    function winEffect(){
-        for(let i=0;i<50;i++){
-            const h = document.createElement("div")
-            h.innerText = "💖"
-            h.style.position="fixed"
-            h.style.left=Math.random()*100+"%"
-            h.style.top=Math.random()*100+"%"
-            h.style.fontSize="20px"
-            document.body.appendChild(h)
-
-            setTimeout(()=>h.remove(),1500)
-        }
+    // botão sair (corrigido)
+    exit.onclick = ()=>{
+        clearInterval(interval)
+        overlay.remove()
     }
-}
+
     function checkWin(){
-        let correct = true
-
-        overlay.childNodes.forEach((p,i)=>{
-            const x = i % 3
-            const y = Math.floor(i / 3)
-            const expected = `${x*50}% ${y*50}%`
-
-            if(p.style.backgroundPosition !== expected){
-                correct = false
-            }
-        })
-
-        if(correct){
+        if(order.every((v,i)=>v===i)){
             setTimeout(()=>{
-                alert("vc montou a gente 💖")
+                clearInterval(interval) // importante
+                alert(`vc montou a gente 💖 em ${seconds}s`)
                 overlay.remove()
             },300)
         }
