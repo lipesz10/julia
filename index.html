@@ -545,60 +545,114 @@ setTimeout(()=>{
 },2000)
 
 function huntHeart(){
+
+    const overlay = document.createElement("div")
+    overlay.style.position = "fixed"
+    overlay.style.inset = "0"
+    overlay.style.zIndex = "9999"
+    overlay.style.pointerEvents = "auto"
+
+    document.body.appendChild(overlay)
+
     const total = 8
     let correct = Math.floor(Math.random()*total)
 
     for(let i=0;i<total;i++){
         const h = document.createElement("div")
         h.innerText = "❤️"
-        h.style.position="fixed"
+        h.style.position="absolute"
         h.style.left=Math.random()*90+"%"
         h.style.top=Math.random()*90+"%"
-        h.style.fontSize="30px"
+        h.style.fontSize="35px"
         h.style.cursor="pointer"
 
         h.onclick = ()=>{
             if(i===correct){
-                alert("ACERTOU 💕 vc sempre acerta meu coração")
+                alert("parabens bem💕 sempre certeira né")
+                overlay.remove()
             }else{
-                alert("errou 😒 tenta dnv amor")
+                h.innerText="💔"
             }
-            h.remove()
         }
 
-        document.body.appendChild(h)
+        overlay.appendChild(h)
     }
 }
-    function puzzleGame(){
-    const container = document.createElement("div")
-    container.style.position="fixed"
-    container.style.inset="0"
-    container.style.background="#000"
-    container.style.display="grid"
-    container.style.gridTemplateColumns="repeat(3,1fr)"
-    container.style.zIndex="9999"
+function puzzleGame(){
+
+    const overlay = document.createElement("div")
+    overlay.style.position="fixed"
+    overlay.style.inset="0"
+    overlay.style.background="#000"
+    overlay.style.display="grid"
+    overlay.style.gridTemplateColumns="repeat(3,1fr)"
+    overlay.style.gridTemplateRows="repeat(3,1fr)"
+    overlay.style.zIndex="9999"
+
+    document.body.appendChild(overlay)
 
     let pieces = []
-    for(let i=0;i<9;i++){
-        pieces.push(i)
-    }
+    for(let i=0;i<9;i++) pieces.push(i)
+
+    // embaralhar
     pieces.sort(()=>Math.random()-0.5)
 
-    pieces.forEach(n=>{
+    let selected = null
+
+    pieces.forEach((n,index)=>{
         const p = document.createElement("div")
         p.style.border="1px solid white"
-        p.style.backgroundImage="url(nos.jpeg)"
+        p.style.backgroundImage="url(quebra.jpeg)"
         p.style.backgroundSize="300% 300%"
-        p.style.backgroundPosition=`${(n%3)*50}% ${Math.floor(n/3)*50}%`
-        container.appendChild(p)
+        
+        const x = n % 3
+        const y = Math.floor(n / 3)
+
+        p.style.backgroundPosition = `${x*50}% ${y*50}%`
+
+        p.dataset.correct = n
+        p.dataset.index = index
+
+        p.onclick = ()=>{
+            if(selected === null){
+                selected = p
+                p.style.outline = "3px solid red"
+            }else{
+                // troca posições
+                const temp = p.style.backgroundPosition
+                p.style.backgroundPosition = selected.style.backgroundPosition
+                selected.style.backgroundPosition = temp
+
+                selected.style.outline = "none"
+                selected = null
+
+                checkWin()
+            }
+        }
+
+        overlay.appendChild(p)
     })
 
-    container.onclick = ()=>{
-        alert("vc é tudo pra mim💖")
-        container.remove()
-    }
+    function checkWin(){
+        let correct = true
 
-    document.body.appendChild(container)
+        overlay.childNodes.forEach((p,i)=>{
+            const x = i % 3
+            const y = Math.floor(i / 3)
+            const expected = `${x*50}% ${y*50}%`
+
+            if(p.style.backgroundPosition !== expected){
+                correct = false
+            }
+        })
+
+        if(correct){
+            setTimeout(()=>{
+                alert("vc montou a gente 💖")
+                overlay.remove()
+            },300)
+        }
+    }
 }
     function loveWheel(){
     const options = [
